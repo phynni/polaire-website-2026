@@ -25,3 +25,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# local scratch / backups
+v2/
+dev-server*.log
+hero-*.png
+hero-dom-dump.html
+case-study-metrics-check.png
