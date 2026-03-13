@@ -313,11 +313,11 @@ export function HeroSection() {
           </div>
         </div>
 
-        {/* Right zone: 4 columns, flex layout */}
+        {/* Right zone: 4 columns, anchored bottom-right */}
         <div className="hero-right-zone" aria-hidden="true">
 
           {/* Col 1: platform icon images */}
-          <div className="hero-col-wrapper hero-col-wrapper-1">
+          <div className="hero-col-wrapper hero-col-wrapper-1" style={{ ["--col-offset" as string]: "-90px" } as React.CSSProperties}>
             <div className="hero-col">
               <img src="/components/f_ads_icon.png" alt="" style={{ ...iconStyle, marginBottom: "22px" }} />
               <img src="/components/g_ads_icon.png" alt="" style={{ ...iconStyle, marginBottom: "14px" }} />
@@ -326,7 +326,7 @@ export function HeroSection() {
           </div>
 
           {/* Col 2: Lead alert + new lead + automation flow */}
-          <div className="hero-col-wrapper hero-col-wrapper-2">
+          <div className="hero-col-wrapper hero-col-wrapper-2" style={{ ["--col-offset" as string]: "-40px" } as React.CSSProperties}>
             <div className="hero-col">
               <div className="hero-component-card hero-space-22">
                 <CardLeadAlert timerId="alert-timer" />
@@ -341,7 +341,7 @@ export function HeroSection() {
           </div>
 
           {/* Col 3: calendar screenshot */}
-          <div className="hero-col-wrapper hero-col-wrapper-3">
+          <div className="hero-col-wrapper hero-col-wrapper-3" style={{ ["--col-offset" as string]: "-140px" } as React.CSSProperties}>
             <div className="hero-col">
               <img
                 src="/components/calendar-booked.png"
@@ -352,7 +352,7 @@ export function HeroSection() {
           </div>
 
           {/* Col 4: review conversion + booking + google review + invoice */}
-          <div className="hero-col-wrapper hero-col-wrapper-4">
+          <div className="hero-col-wrapper hero-col-wrapper-4" style={{ ["--col-offset" as string]: "0px" } as React.CSSProperties}>
             <div className="hero-col">
               <div className="hero-component-card hero-space-28">
                 <CardReviewConversion />
