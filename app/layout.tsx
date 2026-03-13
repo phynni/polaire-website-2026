@@ -11,9 +11,12 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: "Polaire — Acquisition complète pour nettoyeurs de vitres",
+  title: "Polaire - Acquisition pour services résidentiels",
   description:
     "Plus de leads, zéro chaos. Stratégie, contenu, ads, landing pages, CRM et automatisations pour les nettoyeurs de vitres au Québec.",
+  icons: {
+    icon: "/favicon.svg",
+  },
 }
 
 export const viewport: Viewport = {
