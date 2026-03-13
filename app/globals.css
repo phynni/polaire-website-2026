@@ -242,6 +242,58 @@
   z-index: 5;
 }
 
+/* --- Responsive right-zone: scale down + push right as viewport narrows ---
+   Left zone ends at left:24px + width:620px = 644px from left edge.
+   Right zone scaled width = 900 * scale. Its left edge = vw - right_offset - (900 * scale).
+   Goal: left edge must stay >= 660px from left at all times.
+
+   At 1400px+: scale=0.78, right=-120  → left_edge ≈ 1400 - (-120) - 702 = 818px  ✓
+   At 1280px:  scale=0.78, right=-120  → left_edge ≈ 1280 + 120 - 702 = 698px      ✓
+   At 1200px:  scale=0.72, right=-60   → left_edge ≈ 1200 + 60 - 648 = 612px  (tight)
+   So we start scaling more aggressively below 1280px.
+*/
+@media (max-width: 1280px) {
+  .hero-right-zone {
+    transform: scale(0.72);
+    right: -80px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .hero-right-zone {
+    transform: scale(0.66);
+    right: -40px;
+  }
+}
+
+@media (max-width: 1120px) {
+  .hero-right-zone {
+    transform: scale(0.60);
+    right: -20px;
+  }
+}
+
+@media (max-width: 1040px) {
+  .hero-right-zone {
+    transform: scale(0.54);
+    right: 0px;
+  }
+}
+
+@media (max-width: 960px) {
+  .hero-right-zone {
+    transform: scale(0.48);
+    right: 0px;
+  }
+}
+
+@media (max-width: 880px) {
+  .hero-right-zone {
+    transform: scale(0.42);
+    right: 0px;
+  }
+}
+
 .hero-col-wrapper {
   transform: translateY(var(--col-offset, 0px));
   display: flex;
@@ -496,6 +548,11 @@ header.fixed.top-0.left-0.right-0 {
 @keyframes fadeOnly {
   from { opacity: 0; }
   to   { opacity: 1; }
+}
+
+/* HERO — tablet: hide cards entirely once scale can't save us */
+@media (max-width: 800px) {
+  .hero-right-zone { display: none; }
 }
 
 /* HERO — mobile */
