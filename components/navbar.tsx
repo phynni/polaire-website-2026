@@ -2,21 +2,22 @@
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
-import { usePathname } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 import { Menu, X, ArrowUpRight } from "lucide-react"
 import { motion, AnimatePresence } from "motion/react"
 
 const navLinks = [
-  { label: "Processus", href: "#processus" },
-  { label: "Résultats", href: "#resultats" },
-  { label: "FAQ", href: "#faq" },
-  { label: "Contact", href: "/contact" },
+  { label: "Processus", href: "processus", isSection: true },
+  { label: "Résultats", href: "resultats", isSection: true },
+  { label: "FAQ", href: "faq", isSection: true },
+  { label: "Contact", href: "/contact", isSection: false },
 ]
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
   const pathname = usePathname()
+  const router = useRouter()
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20)
@@ -27,6 +28,28 @@ export function Navbar() {
   useEffect(() => {
     setMobileOpen(false)
   }, [pathname])
+
+  const handleSectionClick = (e: React.MouseEvent<HTMLAnchorElement>, sectionId: string) => {
+    e.preventDefault()
+    
+    if (pathname === "/") {
+      // Already on home page, just scroll to section
+      const element = document.getElementById(sectionId)
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" })
+      }
+    } else {
+      // Navigate to home page with hash, then scroll
+      router.push("/")
+      // Use setTimeout to ensure page loads before scrolling
+      setTimeout(() => {
+        const element = document.getElementById(sectionId)
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth" })
+        }
+      }, 100)
+    }
+  }
 
   return (
     <header
@@ -43,13 +66,24 @@ export function Navbar() {
 
         <nav className="hidden lg:flex items-center gap-8">
           {navLinks.map((link) => (
-            <Link
-              key={link.label}
-              href={link.href}
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-300"
-            >
-              {link.label}
-            </Link>
+            link.isSection ? (
+              <a
+                key={link.label}
+                href="#"
+                onClick={(e) => handleSectionClick(e, link.href)}
+                className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-300 cursor-pointer"
+              >
+                {link.label}
+              </a>
+            ) : (
+              <Link
+                key={link.label}
+                href={link.href}
+                className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-300"
+              >
+                {link.label}
+              </Link>
+            )
           ))}
         </nav>
 
@@ -84,14 +118,25 @@ export function Navbar() {
           >
             <nav className="flex flex-col px-6 py-8 gap-6">
               {navLinks.map((link) => (
-                <Link
-                  key={link.label}
-                  href={link.href}
-                  onClick={() => setMobileOpen(false)}
-                  className="text-2xl font-medium text-foreground"
-                >
-                  {link.label}
-                </Link>
+                link.isSection ? (
+                  <a
+                    key={link.label}
+                    href="#"
+                    onClick={(e) => handleSectionClick(e, link.href)}
+                    className="text-2xl font-medium text-foreground cursor-pointer"
+                  >
+                    {link.label}
+                  </a>
+                ) : (
+                  <Link
+                    key={link.label}
+                    href={link.href}
+                    onClick={() => setMobileOpen(false)}
+                    className="text-2xl font-medium text-foreground"
+                  >
+                    {link.label}
+                  </Link>
+                )
               ))}
               <Link
                 href="/contact"
